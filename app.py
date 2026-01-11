@@ -14,8 +14,7 @@ def translate():
         "client": "gtx",
         "sl": "auto",
         "tl": target,
-        "dt": "t",
-        "dt": "ld",
+        "dt": ["t", "ld"],  # <-- FIXED: list instead of duplicate keys
         "q": text
     }
 

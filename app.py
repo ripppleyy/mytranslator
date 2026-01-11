@@ -15,6 +15,7 @@ def translate():
         "sl": "auto",
         "tl": target,
         "dt": "t",
+        "dt": "ld",
         "q": text
     }
 
@@ -22,5 +23,9 @@ def translate():
     result = r.json()
 
     translated = result[0][0][0]
+    detected_lang = result[2]
 
-    return jsonify({"translatedText": translated})
+    return jsonify({
+        "translatedText": translated,
+        "detectedSourceLanguage": detected_lang
+    })

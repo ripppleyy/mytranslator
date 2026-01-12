@@ -1,24 +1,20 @@
 string API_URL = "https://mytranslator-45dr.onrender.com/translate";
 integer translate_enabled = TRUE; // starts ON
 
-updateIndicator()
-{
-    if (translate_enabled)
-    {
-        llSetText("Translator: ON", <0.0, 1.0, 0.0>, 1.0); // green
-    }
-    else
-    {
-        llSetText("Translator: OFF", <1.0, 0.0, 0.0>, 1.0); // red
-    }
-}
-
 default
 {
     state_entry()
     {
         llListen(0, "", NULL_KEY, "");
-        updateIndicator();
+        // Initial indicator
+        if (translate_enabled)
+        {
+            llSetText("Translator: ON", <0.0, 1.0, 0.0>, 1.0); // green
+        }
+        else
+        {
+            llSetText("Translator: OFF", <1.0, 0.0, 0.0>, 1.0); // red
+        }
         llOwnerSay("Translator active. Use !trans on/off to toggle (group only).");
     }
 
@@ -39,7 +35,7 @@ default
             {
                 translate_enabled = TRUE;
                 llOwnerSay("Translation enabled.");
-                updateIndicator();
+                llSetText("Translator: ON", <0.0, 1.0, 0.0>, 1.0); // green
                 return;
             }
 
@@ -47,7 +43,7 @@ default
             {
                 translate_enabled = FALSE;
                 llOwnerSay("Translation disabled.");
-                updateIndicator();
+                llSetText("Translator: OFF", <1.0, 0.0, 0.0>, 1.0); // red
                 return;
             }
         }

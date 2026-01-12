@@ -6,35 +6,26 @@ default
     state_entry()
     {
         llListen(0, "", NULL_KEY, "");
-        llOwnerSay("Translator active. Use !trans on/off to toggle (group only).");
+        llOwnerSay("Translator active. Use !trans on/off to toggle.");
     }
 
     listen(integer channel, string name, key id, string msg)
     {
         string lower = llToLower(msg);
 
-        // --- GROUP CHECK FOR TOGGLE COMMANDS ---
-        if (lower == "!trans on" || lower == "!trans off")
+        // Toggle commands (no group check)
+        if (lower == "!trans on")
         {
-            if (!llSameGroup(id))
-            {
-                llRegionSayTo(id, 0, "You must be in the same group as this device to control it.");
-                return;
-            }
+            translate_enabled = TRUE;
+            llOwnerSay("Translation enabled.");
+            return;
+        }
 
-            if (lower == "!trans on")
-            {
-                translate_enabled = TRUE;
-                llOwnerSay("Translation enabled.");
-                return;
-            }
-
-            if (lower == "!trans off")
-            {
-                translate_enabled = FALSE;
-                llOwnerSay("Translation disabled.");
-                return;
-            }
+        if (lower == "!trans off")
+        {
+            translate_enabled = FALSE;
+            llOwnerSay("Translation disabled.");
+            return;
         }
 
         // If translation is off, ignore everything else

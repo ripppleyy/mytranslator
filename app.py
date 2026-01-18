@@ -14,15 +14,15 @@ def translate():
         "client": "gtx",
         "sl": "auto",
         "tl": target,
-        "dt": ["t", "ld"],
+        "dt": "t",
         "q": text
     }
 
     r = requests.get(url, params=params)
     result = r.json()
 
-    translated = result[0][0][0]
-    detected_lang = result[2]
+    translated = result[0][0][0]          # correct translated text
+    detected_lang = result[2]             # correct detected language code
 
     return jsonify({
         "translatedText": translated,
